@@ -8,14 +8,19 @@ int main()
 {
 	srand(time(NULL));
 	char randxlvl, lvl, i, j;
-	char shotx, shield = 8;
+	char shotx = 8;
+	char shield = 20;
 	int score = 0;
 
-	printf("-----WELCOME TO BATTLESTRING----- by Esteban Marin\n");
-	getchar();
-	printf("You must destroy the enemy ships by firing from 1 to 8");
-	getchar();
-	printf("GOOD LUCK!!!");
+	printf("-----WELCOME TO BATTLESTRING----- by Esteban Marin\n\n");
+	Sleep(1000);
+	printf("You must destroy the enemy ships by firing from 1 to 8\n\n");
+	Sleep(1000);
+	printf("You can shoot two bullets to the maximum.");
+	Sleep(1000);
+	printf("GOOD LUCK!!!\n\n");
+	Sleep(1000);
+	printf("== PRESS ENTER KEY! ==");
 	getchar();
 
 	lvl = 25;
@@ -40,7 +45,7 @@ int main()
 	do
 	{
 		system("cls");
-		/// MAP printing
+		// MAP printing
 		printf("     BATTLEMAP\n");
 		for (i = 0; i < 13; i++)
 		{
@@ -52,6 +57,7 @@ int main()
 
 		}
 
+		// Crash
 		for (i = 0; i < 13; i++)
 		{
 			for (j = 0; j < 10; j++)
@@ -64,8 +70,8 @@ int main()
 				}
 			}
 		}
-		/// SHOOT & LIFES
-
+		
+		// SHOOT & LIFES
 		for (j = 1; j < 9; j++)
 		{
 			if (battlemap[0][j] == '*')
@@ -73,7 +79,8 @@ int main()
 				battlemap[11][j] = ' ';
 			}
 		}
-
+		
+		//Movement of the bullet
 		for (i = 1; i < 13; i++)
 		{
 			for (j = 1; j < 9; j++)
@@ -85,20 +92,8 @@ int main()
 				}
 			}
 		}
-
-		for (i = 0; i < 13; i++)
-		{
-			for (j = 0; j < 10; j++)
-			{
-				if (battlemap[i][j] == 'V' && battlemap[i + 1][j] == '*')
-				{
-					battlemap[i][j] = ' ';
-					battlemap[i + 1][j] = ' ';
-					score += 10;
-				}
-			}
-		}
-		/// BULLETS CLEANER
+		
+		//Top bullet removed
 		for (j = 1; j < 9; j++)
 		{
 			if (battlemap[0][j] == '*')
@@ -106,18 +101,18 @@ int main()
 				battlemap[0][j] = ' ';
 			}
 		}
-
+		
 		printf("SCORE        SHIELD");
 		printf("\n%i    \t\t  %i\nX: ", score, shield);
-		scanf_s("%i", &shotx);
-		getchar();
+		
+		//Bullets fired
+		scanf_s("%i%i", &shotx1, &shotx2);
+		battlemap[11][shotx1] = '*';
+		battlemap[11][shotx2] = '*';
 
-		battlemap[11][shotx] = '*';
 
 
-
-		/// ENEMY MOVEMENT
-
+		// ENEMY MOVEMENT
 		for (i = 10; i > -1; i--)
 		{
 			for (j = 1; j < 9; j++)
@@ -129,6 +124,7 @@ int main()
 				}
 			}
 		}
+		
 		/// Enemy generator & LEVEL RISING
 		if (lvl == 25)
 		{
@@ -156,9 +152,10 @@ int main()
 				battlemap[11][j] = ' ';
 			}
 		}
+		
+		//GAME OVER
 		if (shield <= 0)
 		{
-			/// GAME OVER
 			system("cls");
 			shield = 0;
 			for (j = 1; j < 9; j++)
@@ -182,6 +179,7 @@ int main()
 			battlemap[4][6] = 'R';
 			battlemap[4][7] = ' ';
 			battlemap[4][8] = ' ';
+			
 			//GAME OVER PRINTING
 			printf("     BATTLEMAP\n");
 			for (i = 0; i < 13; i++)
